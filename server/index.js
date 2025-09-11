@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
+const routes = require('./auth/auth');
 // require('dotenv').config();
 
 const app = express();
@@ -9,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/auth', routes);
 
 const dataDir = path.join(__dirname, './data');
 const usersFile = path.join(dataDir, 'users.json');
@@ -52,14 +55,14 @@ app.get('/user/:userid/book/:bookid', (req, res) => {
 
 // set requrest query
 app.get('/search', (req, res) => {
-    const { q, page = 1, limit = 10 } = req.query;
+    const { q, number, page = 1, limit = 10 } = req.query;
     // validate query params
-    if(!q) {
+    if(!q || q.trim() === '') {
         return res.status(400).json({ error: 'Query parameter "q" is required' });
     }
 
 
-    res.json({ query: q, page: Number(page), limit: Number(limit), results: [] });
+    res.json({ query: q, index: number, page: Number(page), limit: Number(limit), results: [] });
 });
 
 // --------------------------------------------------------------------------------------------------
