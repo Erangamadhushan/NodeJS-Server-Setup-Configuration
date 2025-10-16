@@ -1,0 +1,15 @@
+{
+    // Jest only
+    "scripts": {
+        "test": "cross-env CI=true jest --runInBand --coverage"
+    }
+    // Mocha only
+    "scripts": {
+        "test": "cross-env CI=true mocha --reporter spec"
+    },
+    // Lint + Jest
+    "scripts": {
+        "lint": "eslint . --ext .js,.mjs,.cjs",
+        "test": "npm run lint && cross-env CI=true jest --runInBand --coverage"
+    }
+}
