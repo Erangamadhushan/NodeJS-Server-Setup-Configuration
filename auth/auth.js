@@ -28,7 +28,7 @@ router.get('/profile/:id/Name/:name', async (req, res) => {
     try {
         const { id, name } = req.params;
         const usersData = readUsers();
-        const user = usersData.users.find(u => u.id === id && u.name === nam);
+        const user = usersData.users.find(u => u.id === id && u.name === name);
         if (user) {
             res.json(user);
         } else {
